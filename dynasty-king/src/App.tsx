@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Crown, Flame, Leaf, Menu as MenuIcon, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "./components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "./components/ui/card";
+import { Badge } from "./components/ui/badge";
+import { Input } from "./components/ui/input";
+import { Label } from "./components/ui/label";
+import { Switch } from "./components/ui/switch";
+import { Separator } from "./components/ui/separator";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./components/ui/sheet";
+import { ScrollArea } from "./components/ui/scroll-area";
 
 /**
  * DYNASTY KING — single-file React starter using shadcn/ui

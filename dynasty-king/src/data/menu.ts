@@ -2,45 +2,38 @@ import type { Dish } from '../types';
 
 export const MENU: Dish[] = [
   {
-    id: 'ds-001',
-    name: 'Pork Soup Dumplings',
-    priceCents: 1195,
+    name: 'Sesame Chicken and Broccoli',
+    price: 1195,
     category: 'Dim Sum',
   },
   {
-    id: 'ap-002',
-    name: 'Scallion Pancakes',
-    priceCents: 795,
+    name: 'General Tso’s Chicken Combo',
+    price: 795,
     category: 'Appetizers',
   },
   {
-    id: 'nd-003',
-    name: 'Beef Chow Fun',
-    priceCents: 1495,
+    name: 'Shrimp with Lobster Sauce',
+    price: 1495,
     category: 'Entrees',
-  },
-  {
-    id: 'en-004',
-    name: 'Kung Pao Chicken',
-    priceCents: 1595,
-    category: 'Entrees',
-  },
-  {
-    id: 'vg-005',
-    name: 'Mapo Tofu',
-    priceCents: 1450,
-    category: 'Vegetables',
-  },
-  {
-    id: 'ds-006',
-    name: 'Mango Pudding',
-    priceCents: 650,
-    category: 'Desserts',
-  },
-  {
-    id: 'bv-007',
-    name: 'Jasmine Iced Tea',
-    priceCents: 395,
-    category: 'Beverages',
-  },
+  }
+//   {
+//     name: 'Kung Pao Chicken',
+//     price: 1595,
+//     category: 'Entrees',
+//   },
+//   {
+//     name: 'Mapo Tofu',
+//     price: 1450,
+//     category: 'Vegetables',
+//   },
+//   {
+//     name: 'Mango Pudding',
+//     price: 650,
+//     category: 'Desserts',
+//   },
+//   {
+//     name: 'Jasmine Iced Tea',
+//     price: 395,
+//     category: 'Beverages',
+//   },
 ];

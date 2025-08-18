@@ -68,13 +68,13 @@ export default function ContactPage() {
         <aside className="card">
           <h2 style={{ marginTop: 0 }}>Find Us</h2>
           <p style={{ color: 'var(--muted)' }}>
-            88 Lucky Street, Worcester, MA<br/>
-            (508) 555‑0133<br/>
-            hello@goldendragon.example
+            296 Route 59, Tallman, NY<br/>
+            (845) 357-2252<br/>
+            hello@dynastyking.example
           </p>
           <iframe
-            title="Map to Golden Dragon, Worcester MA"
-            src="https://www.google.com/maps?q=Worcester%20MA&output=embed"
+            title="Map to Dynasty King, Tallman NY"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6012.092518601745!2d-74.10340052367998!3d41.111680771336026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e741fb7d49df%3A0xa3e09de16e86f48e!2sDynasty%20King!5e0!3m2!1sen!2sus!4v1755544551934!5m2!1sen!2sus"
             width="100%"
             height="260"
             loading="lazy"

@@ -10,31 +10,29 @@ export default function HomePage() {
       <Metadata title="Home" />
       <section className="hero">
         <div>
-          <span className="badge">Since 1996</span>
-          <h1>Hand‑crafted dim sum & modern classics</h1>
-          <p>Experience wok‑hei perfection, premium ingredients, and a cozy dining room right in Worcester.</p>
+          <h1>Dynasty King</h1>
+          <p>Where tradition meets taste - authentic Chinese cuisine made with care.</p>
           <div className="actions">
             <Link to="/menu" className="btn primary">View Menu</Link>
-            <Link to="/contact" className="btn ghost">Reserve</Link>
           </div>
         </div>
       </section>
 
       <section>
-        <h2 className="section-title">Chef’s Picks</h2>
+        <h2 className="section-title">Customer's Favorites</h2>
         <div className="grid cols-3">
-          {featured.map(d => <DishCard key={d.id} dish={d} />)}
+          {featured.map(d => <DishCard key={d.name} dish={d} />)}
         </div>
       </section>
 
       <section>
         <h2 className="section-title">Visit Us</h2>
         <div className="card">
-          <p style={{ margin: 0 }}>88 Lucky Street, Worcester, MA • (508) 555‑0133</p>
+          <p style={{ margin: 0 }}>296 Route 59, Tallman, NY • (845) 357‑2252</p>
           <div style={{ marginTop: '1rem' }}>
             <iframe
-              title="Map to Golden Dragon, Worcester MA"
-              src="https://www.google.com/maps?q=Worcester%20MA&output=embed"
+              title="Map to Dynasty King, Tallman, NY"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6012.092518601745!2d-74.10340052367998!3d41.111680771336026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e741fb7d49df%3A0xa3e09de16e86f48e!2sDynasty%20King!5e0!3m2!1sen!2sus!4v1755544551934!5m2!1sen!2sus"
               width="100%"
               height="320"
               loading="lazy"

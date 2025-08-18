@@ -21,8 +21,8 @@ export function useFilteredMenu({ items, query, category, sort }: Omit<MenuFilte
     }
     next = [...next].sort((a, b) => {
       if (sort === 'name') return a.name.localeCompare(b.name);
-      if (sort === 'priceAsc') return a.priceCents - b.priceCents;
-      return b.priceCents - a.priceCents;
+      if (sort === 'priceAsc') return a.price - b.price;
+      return b.price - a.price;
     });
     return next;
   }, [items, query, category, sort]);

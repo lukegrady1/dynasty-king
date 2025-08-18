@@ -1,21 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import MenuPage from './pages/MenuPage';
-import './App.css';
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/menu" element={<MenuPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
-    </Router>
+    <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
   );
 }
-
-export default App;

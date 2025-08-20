@@ -15,8 +15,8 @@ type Dish = {
 const DEFAULT_TABLES = [
   "appetizers",
   "soups",
-  // "dim_sum",
-  // "noodles",
+  "fried_rice",
+  "lo_mein",
   // "rice",
   // "vegetables",
   // "desserts",

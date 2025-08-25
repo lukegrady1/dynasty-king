@@ -1,0 +1,119 @@
+:root {
+  --bg: #0b0b0b;
+  --bg-elev: #131313;
+  --text: #fafafa;
+  --muted: #bdbdbd;
+  --brand: #c81d25;    /* lucky red */
+  --brand-2: #d4a017;  /* gold */
+  --ring: 2px solid #ffffff40;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 20% -10%, #1c1c1c 0%, #0b0b0b 60%),
+              radial-gradient(1200px 800px at 120% 110%, #191919 0%, #0b0b0b 60%);
+}
+
+img { max-width: 100%; display: block; }
+
+.container { width: min(1200px, 92%); margin-inline: auto; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; text-decoration: none; user-select: none;
+  gap: .5rem; font-weight: 600; border-radius: calc(var(--radius) - 4px);
+  padding: .8rem 1.2rem; box-shadow: var(--shadow);
+}
+.btn.primary { background: linear-gradient(135deg, var(--brand), #8f0f16); color: white; }
+.btn.ghost { background: #ffffff10; color: white; backdrop-filter: blur(6px); border: 1px solid #ffffff20; }
+.btn:focus-visible { outline: var(--ring); }
+
+.card {
+  background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+  border: 1px solid #ffffff10;
+  border-radius: var(--radius);
+  padding: 1rem; box-shadow: var(--shadow);
+}
+
+.grid { display: grid; gap: 1.2rem; }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: #0c0c0cd9; backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ffffff15;
+}
+header .brand { display: flex; align-items: center; gap: .75rem; font-weight: 800; }
+header .brand .dot { width: 14px; height: 14px; background: var(--brand); border-radius: 50%; box-shadow: 0 0 0 3px #ffffff10; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+nav a[aria-current="page"], nav a:hover { color: white; }
+
+footer.site { border-top: 1px solid #ffffff15; background: #0b0b0b; margin-top: 3rem; }
+footer .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+footer small { color: var(--muted); }
+
+.hero {
+  display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.6rem; padding: 3rem 0 2rem;
+}
+.hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; margin: 0; }
+.hero p { color: var(--muted); margin: 0.5rem 0 1.2rem; }
+.hero .actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+.section-title { font-size: 1.6rem; margin: 1.5rem 0 .8rem; }
+.badge { display: inline-block; border: 1px solid #ffffff20; padding: .25rem .5rem; border-radius: 999px; font-size: .8rem; color: #fff; background: #ffffff08; }
+
+/* Form */
+label { display: block; font-weight: 600; margin-bottom: .35rem; }
+input, select, textarea {
+  width: 100%; background: #101010; color: white; border: 1px solid #ffffff20; border-radius: 12px; padding: .75rem .9rem;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var(--ring); }
+
+/* Accessibility helpers */
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; background: #000; color: #fff; padding: .5rem .75rem; border-radius: 8px; z-index: 100; }
+
+/* ===== Tabs Styling ===== */
+.tabs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tab-link {
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card);
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab-link:hover {
+  background: var(--muted);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.tab-link:active {
+  transform: translateY(0);
+}
+
+.tab-link.active {
+  background: #940000;       /* Dynasty red */
+  border-color: #7a0000;
+  color: #fff;
+}

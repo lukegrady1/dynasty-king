@@ -7,11 +7,10 @@ import "../styles/index.css";
 type Dish = {
   name: string;       // required
   price: number;      // dollars (numeric in Supabase)
-  category: string;   // derived from table name
+  category: string;   // derived from table name (Title Case)
   _order?: string;    // hidden: from `number` column, used for ordering
 };
 
-// Configure your category tables here or via env: VITE_MENU_TABLES=appetizers,entrees,dim_sum,...
 const DEFAULT_TABLES = [
   "appetizers",
   "soups",
@@ -34,6 +33,9 @@ const DEFAULT_TABLES = [
 
 const toTitle = (s: string) =>
   s.replace(/_/g, " ").replace(/\b\w/g, (m) => m.toUpperCase());
+
+const toTableKey = (categoryTitle: string) =>
+  categoryTitle.toLowerCase().replace(/\s+/g, "_");
 
 const usd = (n: number) =>
   new Intl.NumberFormat(undefined, { style: "currency", currency: "USD" }).format(n);
@@ -114,11 +116,21 @@ export default function MenuPage() {
     // client-side sort
     next = [...next].sort((a, b) => {
       if (sort === "menuOrder") {
-        // primary: `number` (lexicographic), secondary: category, tertiary: name
+        // primary: `number` (lexicographic), secondary: category by DEFAULT_TABLES/env order, tertiary: name
         const ao = a._order ?? "";
         const bo = b._order ?? "";
         if (ao !== bo) return ao.localeCompare(bo, undefined, { numeric: true, sensitivity: "base" });
-        if (a.category !== b.category) return a.category.localeCompare(b.category);
+
+        const orderList =
+          (import.meta as any)?.env?.VITE_MENU_TABLES
+            ?.split(",")
+            .map((t: string) => t.trim())
+            .filter(Boolean) ?? DEFAULT_TABLES;
+
+        const aIdx = orderList.indexOf(toTableKey(a.category));
+        const bIdx = orderList.indexOf(toTableKey(b.category));
+        if (aIdx !== bIdx) return (aIdx === -1 ? 1 : aIdx) - (bIdx === -1 ? 1 : bIdx);
+
         return a.name.localeCompare(b.name);
       }
       if (sort === "name") return a.name.localeCompare(b.name);
@@ -137,7 +149,20 @@ export default function MenuPage() {
       if (!m.has(d.category)) m.set(d.category, []);
       m.get(d.category)!.push(d);
     }
-    return Array.from(m.entries()).sort(([a], [b]) => a.localeCompare(b));
+
+    // Sort categories by the order of tables (env override -> DEFAULT_TABLES)
+    const orderList =
+      (import.meta as any)?.env?.VITE_MENU_TABLES
+        ?.split(",")
+        .map((t: string) => t.trim())
+        .filter(Boolean) ?? DEFAULT_TABLES;
+
+    return Array.from(m.entries()).sort(([a], [b]) => {
+      const aIdx = orderList.indexOf(toTableKey(a));
+      const bIdx = orderList.indexOf(toTableKey(b));
+      // categories not listed fall to the end but remain stable
+      return (aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx) - (bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx);
+    });
   }, [filtered]);
 
   return (

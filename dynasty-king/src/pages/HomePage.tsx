@@ -18,12 +18,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <h2 className="section-title">Customer's Favorites</h2>
         <div className="grid cols-3">
           {featured.map(d => <DishCard key={d.name} dish={d} />)}
         </div>
-      </section>
+      </section> */}
 
       <section>
         <h2 className="section-title">Visit Us</h2>

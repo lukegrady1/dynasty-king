@@ -1,18 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './styles/index.css';
+
+import App from './App';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import ScrollToTop from './components/ScrollToTop';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
-    element: <><ScrollToTop /><App /></>,
+    element: (
+      <>
+        <ScrollToTop />
+        <App />
+      </>
+    ),
     children: [
       { index: true, element: <HomePage /> },
       { path: 'menu', element: <MenuPage /> },

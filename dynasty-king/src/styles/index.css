@@ -78,3 +78,42 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var
 /* Accessibility helpers */
 .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 .skip-link:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; background: #000; color: #fff; padding: .5rem .75rem; border-radius: 8px; z-index: 100; }
+
+/* ===== Tabs Styling ===== */
+.tabs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tab-link {
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card);
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab-link:hover {
+  background: var(--muted);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.tab-link:active {
+  transform: translateY(0);
+}
+
+.tab-link.active {
+  background: #940000;       /* Dynasty red */
+  border-color: #7a0000;
+  color: #fff;
+}

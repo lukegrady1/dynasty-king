@@ -1,17 +1,18 @@
 // src/pages/MenuPage.tsx
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
 import Metadata from "../seo/MetaData";
 import "../styles/index.css";
 
+
 type Dish = {
-  name: string;       // required
-  price: number;      // dollars (numeric in Supabase)
-  category: string;   // derived from table name (Title Case)
-  _order?: string;    // hidden: from `number` column, used for ordering
+  name: string;
+  price: number;
+  category: string;
+  _order?: string;
 };
 
-const DEFAULT_TABLES = [
+const DEFAULT_TABLES: string[] = [
   "appetizers",
   "soups",
   "fried_rice",
@@ -31,52 +32,56 @@ const DEFAULT_TABLES = [
   "sides",
 ];
 
-const toTitle = (s: string) =>
+const toTitle = (s: string): string =>
   s.replace(/_/g, " ").replace(/\b\w/g, (m) => m.toUpperCase());
 
-const toTableKey = (categoryTitle: string) =>
+const toTableKey = (categoryTitle: string): string =>
   categoryTitle.toLowerCase().replace(/\s+/g, "_");
 
-const usd = (n: number) =>
+const usd = (n: number): string =>
   new Intl.NumberFormat(undefined, { style: "currency", currency: "USD" }).format(n);
 
-export default function MenuPage() {
+export default function MenuPage(): JSX.Element {
   const [items, setItems] = useState<Dish[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [errors, setErrors] = useState<string[]>([]);
   const [empties, setEmpties] = useState<string[]>([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState<"menuOrder" | "name" | "priceAsc" | "priceDesc">("menuOrder");
+
+  const topRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let mounted = true;
 
     async function fetchTable(table: string): Promise<Dish[]> {
-      // Expect columns: name (text), price (numeric/float), number (text a-z)
       const { data, error } = await supabase
         .from(table)
         .select("name, price, number")
-        .order("number", { ascending: true, nullsFirst: true }); // server-side order by `number` if present
+        .order("number", { ascending: true, nullsFirst: true });
 
       if (error) throw new Error(`[${table}] ${error.message}`);
 
       const category = toTitle(table);
-      return (data ?? []).map((r: any) => ({
+      return (data ?? []).map((r: any): Dish => ({
         name: String(r.name ?? "").trim(),
-        price: typeof r.price === "number" ? r.price : parseFloat(String(r.price ?? "0")),
+        price:
+          typeof r.price === "number"
+            ? (r.price as number)
+            : parseFloat(String(r.price ?? "0")),
         category,
-        _order: r.number ? String(r.number) : undefined, // keep for sorting only; not rendered
+        _order: r.number ? String(r.number) : undefined,
       }));
     }
 
-    async function load() {
+    async function load(): Promise<void> {
       setLoading(true);
       setErrors([]);
       setEmpties([]);
 
       const envTables = (import.meta as any)?.env?.VITE_MENU_TABLES as string | undefined;
-      const tables = envTables
-        ? envTables.split(",").map((t) => t.trim()).filter(Boolean)
+      const tables: string[] = envTables
+        ? envTables.split(",").map((t: string) => t.trim()).filter(Boolean)
         : DEFAULT_TABLES;
 
       const next: Dish[] = [];
@@ -84,13 +89,13 @@ export default function MenuPage() {
       const zeroes: string[] = [];
 
       await Promise.all(
-        tables.map(async (t) => {
+        tables.map(async (t: string) => {
           try {
             const rows = await fetchTable(t);
             if (rows.length === 0) zeroes.push(t);
             next.push(...rows);
-          } catch (e: any) {
-            errs.push(e?.message ?? String(e));
+          } catch (e: unknown) {
+            errs.push(e instanceof Error ? e.message : String(e));
           }
         })
       );
@@ -102,26 +107,28 @@ export default function MenuPage() {
       setLoading(false);
     }
 
-    load();
+    void load();
     return () => {
       mounted = false;
     };
   }, []);
 
-  const filtered = useMemo(() => {
+  const filtered: Dish[] = useMemo(() => {
     let next = items;
     const q = query.trim().toLowerCase();
-    if (q) next = next.filter((i) => (i.name + " " + i.category).toLowerCase().includes(q));
+    if (q) {
+      next = next.filter((i: Dish) =>
+        (i.name + " " + i.category).toLowerCase().includes(q)
+      );
+    }
 
-    // client-side sort
-    next = [...next].sort((a, b) => {
+    next = [...next].sort((a: Dish, b: Dish): number => {
       if (sort === "menuOrder") {
-        // primary: `number` (lexicographic), secondary: category by DEFAULT_TABLES/env order, tertiary: name
         const ao = a._order ?? "";
         const bo = b._order ?? "";
-        if (ao !== bo) return ao.localeCompare(bo, undefined, { numeric: true, sensitivity: "base" });
+        if (ao !== bo) return ao.localeCompare(bo, undefined, { numeric: true });
 
-        const orderList =
+        const orderList: string[] =
           (import.meta as any)?.env?.VITE_MENU_TABLES
             ?.split(",")
             .map((t: string) => t.trim())
@@ -129,49 +136,75 @@ export default function MenuPage() {
 
         const aIdx = orderList.indexOf(toTableKey(a.category));
         const bIdx = orderList.indexOf(toTableKey(b.category));
-        if (aIdx !== bIdx) return (aIdx === -1 ? 1 : aIdx) - (bIdx === -1 ? 1 : bIdx);
-
-        return a.name.localeCompare(b.name);
+        return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
       }
       if (sort === "name") return a.name.localeCompare(b.name);
       if (sort === "priceAsc") return a.price - b.price;
-      // priceDesc
       return b.price - a.price;
     });
 
     return next;
   }, [items, query, sort]);
 
-  // Group into sections by category for rendering
-  const byCategory = useMemo(() => {
+  const byCategory: [string, Dish[]][] = useMemo(() => {
     const m = new Map<string, Dish[]>();
     for (const d of filtered) {
       if (!m.has(d.category)) m.set(d.category, []);
       m.get(d.category)!.push(d);
     }
 
-    // Sort categories by the order of tables (env override -> DEFAULT_TABLES)
-    const orderList =
+    const orderList: string[] =
       (import.meta as any)?.env?.VITE_MENU_TABLES
         ?.split(",")
         .map((t: string) => t.trim())
         .filter(Boolean) ?? DEFAULT_TABLES;
 
-    return Array.from(m.entries()).sort(([a], [b]) => {
-      const aIdx = orderList.indexOf(toTableKey(a));
-      const bIdx = orderList.indexOf(toTableKey(b));
-      // categories not listed fall to the end but remain stable
-      return (aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx) - (bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx);
-    });
+    return Array.from(m.entries()).sort(
+      ([a], [b]) =>
+        (orderList.indexOf(toTableKey(a)) === -1 ? 999 : orderList.indexOf(toTableKey(a))) -
+        (orderList.indexOf(toTableKey(b)) === -1 ? 999 : orderList.indexOf(toTableKey(b)))
+    );
   }, [filtered]);
 
+  const tabs = useMemo(() => {
+    const orderList: string[] =
+      (import.meta as any)?.env?.VITE_MENU_TABLES
+        ?.split(",")
+        .map((t: string) => t.trim())
+        .filter(Boolean) ?? DEFAULT_TABLES;
+
+    const presentKeys = new Set<string>(
+      byCategory.map(([title]) => toTableKey(title))
+    );
+
+    return orderList
+      .filter((key) => presentKeys.has(key))
+      .map((key) => ({
+        key,
+        title: toTitle(key),
+        href: `#cat-${key}`,
+      }));
+  }, [byCategory]);
+
+  const handleTabClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string): void => {
+    e.preventDefault();
+    const id = href.replace(/^#/, "");
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <main id="main-content" className="container" style={{ maxWidth: 900, padding: "1.25rem" }}>
+    <main
+      id="main-content"
+      className="container"
+      style={{ maxWidth: 900, padding: "1.25rem" }}
+      ref={topRef}
+    >
       <Metadata title="Menu" />
       <h1 className="section-title" style={{ marginTop: "1.2rem" }}>Menu</h1>
 
-      {/* Controls */}
-      <div className="card" role="region" aria-label="Menu controls">
+      {/* Controls + Tabs */}
+      <div className="card" role="region" aria-label="Menu controls and sections">
         <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
           <div>
             <label htmlFor="search">Search</label>
@@ -184,54 +217,63 @@ export default function MenuPage() {
           </div>
           <div>
             <label htmlFor="sort">Sort</label>
-            <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as any)}>
+            <select
+              id="sort"
+              value={sort}
+              onChange={(e) =>
+                setSort(e.target.value as "menuOrder" | "name" | "priceAsc" | "priceDesc")
+              }
+            >
               <option value="menuOrder">Item: Name</option>
               <option value="priceAsc">Price: Low → High</option>
               <option value="priceDesc">Price: High → Low</option>
             </select>
           </div>
         </div>
+
+        {/* Tabs */}
+        {!loading && tabs.length > 0 && (
+          <>
+            <hr style={{ border: "none", borderTop: "1px solid var(--border)", margin: "0.75rem 0" }} />
+            <div className="tabs-container" role="tablist" aria-label="Menu sections">
+              <a
+                href="#top"
+                onClick={(e) => {
+                  e.preventDefault();
+                  topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                role="tab"
+                className="tab-link"
+              >
+                All
+              </a>
+              {tabs.map((t) => (
+                <a
+                  key={t.key}
+                  href={t.href}
+                  role="tab"
+                  className="tab-link"
+                  onClick={(e) => handleTabClick(e, t.href)}
+                >
+                  {t.title}
+                </a>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {loading && <p style={{ color: "var(--muted)" }}>Loading menu…</p>}
 
-      {!loading && (errors.length > 0 || empties.length > 0) && (
-        <div
-          className="card"
-          style={{ marginTop: "1rem", background: "#fefce8", borderColor: "#facc15" }}
-        >
-          {errors.length > 0 && (
-            <>
-              <strong>Errors:</strong>
-              <ul style={{ marginTop: ".5rem" }}>
-                {errors.map((e, i) => (
-                  <li key={i} style={{ color: "#713f12" }}>{e}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          {empties.length > 0 && (
-            <p style={{ marginTop: ".5rem", color: "#713f12" }}>
-              These tables returned 0 rows: <code>{empties.join(", ")}</code>.
-              If they have data, check Row Level Security (public SELECT) and column names.
-            </p>
-          )}
-        </div>
-      )}
-
-      {!loading && byCategory.length === 0 && (
-        <p style={{ color: "var(--muted)" }}>No dishes found.</p>
-      )}
-
-      {/* Text-only menu, grouped by category. `number`/_order is NOT shown. */}
-      {!loading &&
-        byCategory.map(([category, dishes]) => (
-          <section key={category} style={{ marginTop: "1.5rem" }}>
+      {!loading && byCategory.map(([category, dishes]) => {
+        const id = `cat-${toTableKey(category)}`;
+        return (
+          <section key={category} id={id} style={{ marginTop: "1.5rem", scrollMarginTop: "5.5rem" }}>
             <h2 className="section-title" style={{ marginBottom: ".25rem" }}>{category}</h2>
             <ul className="card" style={{ listStyle: "none", padding: 0 }}>
               {dishes.map((d, idx) => (
                 <li
-                  key={category + "-" + idx + "-" + d.name}
+                  key={`${category}-${idx}-${d.name}`}
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
@@ -246,7 +288,8 @@ export default function MenuPage() {
               ))}
             </ul>
           </section>
-        ))}
+        );
+      })}
     </main>
   );
 }

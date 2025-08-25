@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
-import DishCard from '../components/DishCard';
-import { MENU } from '../data/menu';
 import Metadata from '../seo/MetaData';
 
 export default function HomePage() {
-  const featured = MENU.slice(0, 3);
   return (
     <main id="main-content" className="container">
       <Metadata title="Home" />

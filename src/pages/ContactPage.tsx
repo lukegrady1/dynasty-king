@@ -22,7 +22,7 @@ export default function ContactPage() {
           <p style={{ color: 'var(--muted)' }}>
             Mon–Thu: 11:30am–9pm<br />
             Fri–Sat: 11:30am–9:30pm<br />
-            Sun: 5pm–9pm
+            Sun: 3pm–9pm
           </p>
         </section>
 

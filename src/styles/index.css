@@ -226,4 +226,41 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var
   section[style*="scrollMarginTop"] {
     scroll-margin-top: 7rem !important;
   }
+  
+  /* Contact page mobile optimizations */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  
+  .contact-grid .card {
+    padding: 1.25rem;
+  }
+  
+  .contact-grid .card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .contact-grid .card h3 {
+    font-size: 1.1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  
+  .contact-grid .card p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  /* Phone number emphasis on mobile */
+  .contact-grid .card p strong {
+    font-size: 1.05rem;
+    color: var(--brand);
+  }
+  
+  /* Map iframe mobile optimization */
+  .contact-grid iframe {
+    height: 200px !important;
+    margin-top: 1rem;
+  }
 }

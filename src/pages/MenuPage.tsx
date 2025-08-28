@@ -205,7 +205,7 @@ export default function MenuPage(): JSX.Element {
 
       {/* Controls + Tabs */}
       <div className="card" role="region" aria-label="Menu controls and sections">
-        <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
           <div>
             <label htmlFor="search">Search</label>
             <input

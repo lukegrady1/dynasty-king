@@ -13,10 +13,10 @@ export default function Header() {
         </div>
 
         <nav aria-label="Primary">
-          <ul style={{ listStyle: 'none', display: 'flex', gap: '1rem', margin: 0, padding: 0 }}>
-            <li><NavLink to="/menu">Menu</NavLink></li>
-            <li><NavLink to="/about">About</NavLink></li>
-            <li><NavLink to="/contact">Contact</NavLink></li>
+          <ul style={{ listStyle: 'none', display: 'flex', gap: '1rem', margin: 0, padding: 0, flexWrap: 'wrap' }}>
+            <li><NavLink to="/menu" style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}>Menu</NavLink></li>
+            <li><NavLink to="/about" style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}>About</NavLink></li>
+            <li><NavLink to="/contact" style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}>Contact</NavLink></li>
           </ul>
         </nav>
       </div>

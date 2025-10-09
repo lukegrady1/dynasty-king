@@ -4,8 +4,16 @@ export default function Header() {
   return (
     <header className="site">
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.9rem 0' }}>
-        <a className="brand" href="/dynasty-king" aria-label="Dynasty King Home">
-          <img src="./assets/Dynasty_King.png" alt="Dynasty King Logo" style={{ height: 40, width: "auto" }} />
+        <a className="brand" href="/dynasty-king/" aria-label="Dynasty King Home">
+          <img
+            src="./assets/Dynasty_King.png"
+            alt="Dynasty King Logo"
+            width="120"
+            height="40"
+            style={{ height: 40, width: "auto" }}
+            fetchPriority="high"
+            decoding="async"
+          />
         </a>
 
         <div className="hidden md:block text-center text-sm font-medium text-[#940000] tracking-wide">

@@ -282,7 +282,7 @@ export default function MenuPage(): JSX.Element {
                     gridTemplateColumns: "1fr auto",
                     alignItems: "baseline",
                     padding: ".7rem 0",
-                    borderBottom: "1px solid #ffffff0a",
+                    borderBottom: "1px solid var(--border-light)",
                   }}
                 >
                   <span style={{ fontWeight: 600 }}>{d.name}</span>

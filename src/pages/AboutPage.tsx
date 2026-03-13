@@ -11,7 +11,7 @@ function StarRating({ rating }: { rating: number }) {
         <span key={`full-${i}`}>&#9733;</span>
       ))}
       {Array.from({ length: emptyStars }).map((_, i) => (
-        <span key={`empty-${i}`} style={{ opacity: 0.3 }}>&#9733;</span>
+        <span key={`empty-${i}`} style={{ opacity: 0.2 }}>&#9733;</span>
       ))}
     </span>
   );
@@ -40,18 +40,16 @@ export default function AboutPage() {
     <main id="main-content" className="container">
       <Metadata title="About" />
 
-      <section className="hero" style={{ paddingBottom: '1rem' }}>
-        <div>
-          <span className="badge">Our Story</span>
-          <h1 style={{ paddingTop: '0.75rem' }}>A Family Tradition</h1>
-          <p>
-            From our family to yours &mdash; authentic Chinese cuisine made with
-            love, tradition, and the freshest ingredients.
-          </p>
-        </div>
+      <section className="hero" style={{ paddingBottom: '1.5rem' }}>
+        <span className="badge">Our Story</span>
+        <h1 style={{ marginTop: '0.75rem' }}>A Family Tradition</h1>
+        <p>
+          From our family to yours &mdash; authentic Chinese cuisine made with
+          love, tradition, and the freshest ingredients.
+        </p>
       </section>
 
-      <div className="card" style={{ lineHeight: 1.8 }}>
+      <div className="card" style={{ maxWidth: 750, margin: '0 auto', lineHeight: 1.9 }}>
         <p style={{ marginBottom: '1rem' }}>
           Dynasty King is a family-owned Chinese restaurant proudly serving the Tallman, NY community. Founded by
           immigrants from China, our story is one of tradition, perseverance, and passion for authentic cuisine.
@@ -68,10 +66,12 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="divider" />
+      <div className="divider">
+        <span className="divider-icon" aria-hidden="true">&#9674;</span>
+      </div>
 
-      <h2 className="section-title">What Our Customers Say</h2>
-      <div className="card">
+      <h2 className="section-title centered">What Our Customers Say</h2>
+      <div className="card" style={{ maxWidth: 750, margin: '0 auto' }}>
         {reviews.map((review, idx) => (
           <div className="review-card" key={idx}>
             <div className="reviewer">{review.name}</div>

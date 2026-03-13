@@ -31,7 +31,7 @@ export default function HomePage() {
         {/* Row 1: Large hero tile spanning 8 cols */}
         <motion.div
           className="mosaic-tile"
-          style={{ gridColumn: 'span 8', gridRow: 'span 3', background: 'linear-gradient(135deg, #1a1a1a, #0d0d0d)' }}
+          style={{ gridColumn: 'span 8', gridRow: 'span 3', background: 'linear-gradient(135deg, #2a2622, #1a1714)' }}
           {...tileHover}
         >
           <div style={{ textAlign: 'center', padding: '2rem' }}>
@@ -96,7 +96,7 @@ export default function HomePage() {
         <Link to="/menu" style={{ textDecoration: 'none', display: 'contents' }}>
           <motion.div
             className="mosaic-tile placeholder"
-            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #161616, #0e0e0e)' }}
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #272320, #1a1714)' }}
             {...tileHover}
           >
             <div style={{ textAlign: 'center' }}>
@@ -109,7 +109,7 @@ export default function HomePage() {
         <Link to="/about" style={{ textDecoration: 'none', display: 'contents' }}>
           <motion.div
             className="mosaic-tile placeholder"
-            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(180deg, #141414, #0c0c0c)' }}
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(180deg, #252119, #1a1714)' }}
             {...tileHover}
           >
             <div style={{ textAlign: 'center' }}>
@@ -122,7 +122,7 @@ export default function HomePage() {
         <Link to="/contact" style={{ textDecoration: 'none', display: 'contents' }}>
           <motion.div
             className="mosaic-tile placeholder"
-            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #131313, #0b0b0b)' }}
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #241f1b, #1a1714)' }}
             {...tileHover}
           >
             <div style={{ textAlign: 'center' }}>

@@ -1,4 +1,6 @@
 // src/pages/AboutPage.tsx
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Metadata from '../seo/MetaData';
 
 function StarRating({ rating }: { rating: number }) {
@@ -37,24 +39,22 @@ const reviews = [
 
 export default function AboutPage() {
   return (
-    <main id="main-content" className="container">
-      <Metadata title="About" />
-
-      <section className="hero" style={{ paddingBottom: '1.5rem' }}>
-        <span className="badge">Our Story</span>
-        <h1 style={{ marginTop: '0.75rem' }}>A Family Tradition</h1>
+    <motion.main
+      id="main-content"
+      className="page-content"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="our-story" style={{ paddingTop: '2rem' }}>
+        <div className="gold-divider" style={{ marginBottom: '2rem' }} />
+        <h2>Our Story</h2>
+        <Metadata title="About" />
         <p>
-          From our family to yours &mdash; authentic Chinese cuisine made with
-          love, tradition, and the freshest ingredients.
-        </p>
-      </section>
-
-      <div className="card" style={{ maxWidth: 750, margin: '0 auto', lineHeight: 1.9 }}>
-        <p style={{ marginBottom: '1rem' }}>
           Dynasty King is a family-owned Chinese restaurant proudly serving the Tallman, NY community. Founded by
           immigrants from China, our story is one of tradition, perseverance, and passion for authentic cuisine.
         </p>
-        <p style={{ marginBottom: '1rem' }}>
+        <p>
           From humble beginnings, the owners brought with them cherished family recipes and the dedication to
           recreate the flavors of home. Every dish we serve reflects the rich culinary heritage of
           China&mdash;hand-crafted with care and fresh ingredients that defines true Chinese cooking.
@@ -66,20 +66,31 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="divider">
-        <span className="divider-icon" aria-hidden="true">&#9674;</span>
-      </div>
+      <div className="gold-divider" />
 
-      <h2 className="section-title centered">What Our Customers Say</h2>
-      <div className="card" style={{ maxWidth: 750, margin: '0 auto' }}>
-        {reviews.map((review, idx) => (
-          <div className="review-card" key={idx}>
-            <div className="reviewer">{review.name}</div>
-            <StarRating rating={review.rating} />
-            <blockquote>&ldquo;{review.text}&rdquo;</blockquote>
-          </div>
-        ))}
+      <motion.div
+        className="container"
+        style={{ maxWidth: 650, padding: '3rem 1.5rem' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="section-heading">Reviews</h2>
+        <div className="card">
+          {reviews.map((review, idx) => (
+            <div className="review-card" key={idx}>
+              <div className="reviewer">{review.name}</div>
+              <StarRating rating={review.rating} />
+              <blockquote>&ldquo;{review.text}&rdquo;</blockquote>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      <div style={{ textAlign: 'center', paddingBottom: '3rem' }}>
+        <Link to="/menu" className="btn primary">View Our Menu</Link>
       </div>
-    </main>
+    </motion.main>
   );
 }

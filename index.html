@@ -9,12 +9,8 @@
 
     <!-- Inline critical CSS for instant rendering -->
     <style>
-      :root{--bg:#faf8f5;--text:#2d2926;--brand:#b91c1c;--muted:#8a817a;--border:#e8e3dc}*{box-sizing:border-box;margin:0;padding:0}html,body,#root{height:100%}body{margin:0;font-family:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}.container{width:min(1200px,92%);margin-inline:auto}header.site{position:sticky;top:0;z-index:50;background:rgba(250,248,245,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:5rem 0 3rem}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,4.5rem);line-height:1.05;margin:0;color:var(--text)}
+      :root{--bg:#0a0a0a;--surface:#111111;--gold:#c8a96e}*{box-sizing:border-box;margin:0;padding:0}html,body,#root{height:100%}body{margin:0;font-family:'Montserrat',sans-serif;color:#fff;background:#0a0a0a;-webkit-font-smoothing:antialiased}.container{width:min(1200px,92%);margin-inline:auto}header.site{position:fixed;top:0;width:100%;z-index:50;background:#111111ee;backdrop-filter:blur(10px)}
     </style>
-
-    <!-- Preload critical assets -->
-    <link rel="preload" href="./assets/Dynasty_King.png" as="image" />
-    <link rel="preload" href="/src/main.tsx" as="script" crossorigin />
 
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
@@ -24,10 +20,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Load fonts asynchronously with display=swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <!-- Preload critical assets -->
+    <link rel="preload" href="./assets/Dynasty_King.png" as="image" />
+
+    <!-- Load fonts asynchronously -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     </noscript>
 
     <title>Dynasty King | Authentic Chinese Cuisine in Tallman, NY</title>

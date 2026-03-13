@@ -197,14 +197,13 @@ export default function MenuPage(): JSX.Element {
     <main
       id="main-content"
       className="container"
-      style={{ maxWidth: 900, padding: "1.25rem" }}
+      className="page-content"
+      style={{ maxWidth: 900, padding: "1.25rem", margin: '0 auto' }}
       ref={topRef}
     >
       <Metadata title="Menu" />
-      <div style={{ marginTop: "1.2rem", marginBottom: "0.5rem" }}>
-        <span className="badge">Our Menu</span>
-      </div>
-      <h1 className="section-title" style={{ marginTop: "0.5rem" }}>Explore Our Dishes</h1>
+      <div className="gold-divider" style={{ margin: '1.5rem auto 1.5rem' }} />
+      <h1 className="section-heading" style={{ marginBottom: "1rem" }}>Menu</h1>
 
       {/* Controls + Tabs */}
       <div className="card" role="region" aria-label="Menu controls and sections">
@@ -282,11 +281,11 @@ export default function MenuPage(): JSX.Element {
                     gridTemplateColumns: "1fr auto",
                     alignItems: "baseline",
                     padding: ".7rem 0",
-                    borderBottom: "1px solid var(--border-light)",
+                    borderBottom: "1px solid var(--border)",
                   }}
                 >
-                  <span style={{ fontWeight: 600 }}>{d.name}</span>
-                  <span>{usd(d.price)}</span>
+                  <span style={{ fontWeight: 500, fontSize: '0.85rem' }}>{d.name}</span>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>{usd(d.price)}</span>
                 </li>
               ))}
             </ul>

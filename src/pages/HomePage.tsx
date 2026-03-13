@@ -1,101 +1,159 @@
 import { Link } from 'react-router-dom';
-import { Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Metadata from '../seo/MetaData';
+
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.6 },
+};
+
+const tileHover = {
+  whileHover: { scale: 1.02, filter: 'brightness(1.1)' },
+  transition: { duration: 0.3 },
+};
 
 export default function HomePage() {
   return (
-    <main id="main-content" className="container">
+    <motion.main
+      id="main-content"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Metadata title="Home" />
 
-      {/* Hero — centered, elegant, Yang's style */}
-      <section className="hero">
-        <h1>Dynasty King</h1>
-        <p className="chinese-text">皇朝美食</p>
-        <p className="subtitle">Authentic Chinese Cuisine</p>
+      {/* Spacer for fixed navbar */}
+      <div style={{ height: 60 }} />
+
+      {/* Photo Mosaic Grid */}
+      <div className="photo-mosaic" style={{ minHeight: '60vh' }}>
+        {/* Row 1: Large hero tile spanning 8 cols */}
+        <motion.div
+          className="mosaic-tile"
+          style={{ gridColumn: 'span 8', gridRow: 'span 3', background: 'linear-gradient(135deg, #1a1a1a, #0d0d0d)' }}
+          {...tileHover}
+        >
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <h1 style={{
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+              fontWeight: 700,
+              letterSpacing: '0.05em',
+              marginBottom: '0.5rem',
+            }}>
+              Dynasty King
+            </h1>
+            <p style={{
+              fontSize: '0.7rem',
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+              color: 'var(--gold)',
+              marginBottom: '0.25rem',
+            }}>
+              皇朝美食
+            </p>
+            <p style={{
+              fontSize: '0.75rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--muted)',
+            }}>
+              Authentic Chinese Cuisine &middot; Tallman, NY
+            </p>
+          </div>
+          <div className="tile-overlay" />
+        </motion.div>
+
+        {/* Right column: Order tile */}
+        <motion.a
+          href="tel:+18453572252"
+          className="mosaic-tile gold-tile"
+          style={{ gridColumn: 'span 4', gridRow: 'span 2', textDecoration: 'none' }}
+          {...tileHover}
+        >
+          <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+            <span className="tile-label" style={{ position: 'static', fontSize: '0.8rem' }}>
+              Order Now
+            </span>
+            <p style={{ fontSize: '1.1rem', fontWeight: 700, marginTop: '0.5rem', color: 'var(--bg)' }}>
+              (845) 357-2252
+            </p>
+          </div>
+        </motion.a>
+
+        {/* Right column bottom: Takeout label */}
+        <motion.div
+          className="mosaic-tile placeholder"
+          style={{ gridColumn: 'span 4', gridRow: 'span 1' }}
+          {...tileHover}
+        >
+          <span className="tile-label" style={{ position: 'static', color: 'var(--muted)' }}>
+            Takeout &amp; Delivery
+          </span>
+        </motion.div>
+
+        {/* Row 2: Three tiles */}
+        <Link to="/menu" style={{ textDecoration: 'none', display: 'contents' }}>
+          <motion.div
+            className="mosaic-tile placeholder"
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #161616, #0e0e0e)' }}
+            {...tileHover}
+          >
+            <div style={{ textAlign: 'center' }}>
+              <span className="tile-label" style={{ position: 'static' }}>Menu</span>
+            </div>
+            <div className="tile-overlay" />
+          </motion.div>
+        </Link>
+
+        <Link to="/about" style={{ textDecoration: 'none', display: 'contents' }}>
+          <motion.div
+            className="mosaic-tile placeholder"
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(180deg, #141414, #0c0c0c)' }}
+            {...tileHover}
+          >
+            <div style={{ textAlign: 'center' }}>
+              <span className="tile-label" style={{ position: 'static' }}>About</span>
+            </div>
+            <div className="tile-overlay" />
+          </motion.div>
+        </Link>
+
+        <Link to="/contact" style={{ textDecoration: 'none', display: 'contents' }}>
+          <motion.div
+            className="mosaic-tile placeholder"
+            style={{ gridColumn: 'span 4', gridRow: 'span 2', background: 'linear-gradient(135deg, #131313, #0b0b0b)' }}
+            {...tileHover}
+          >
+            <div style={{ textAlign: 'center' }}>
+              <span className="tile-label" style={{ position: 'static' }}>Contact &amp; Location</span>
+            </div>
+            <div className="tile-overlay" />
+          </motion.div>
+        </Link>
+      </div>
+
+      {/* Our Story Section */}
+      <motion.div
+        className="our-story"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="gold-divider" style={{ marginBottom: '2rem' }} />
+        <h2>Our Story</h2>
         <p>
-          Family-owned &amp; proudly serving Tallman, NY with
-          cherished recipes brought from China.
+          Dynasty King is a family-owned Chinese restaurant proudly serving the Tallman, NY
+          community. Founded by immigrants from China, we bring cherished family recipes and
+          the dedication to recreate the authentic flavors of home.
         </p>
-        <div className="actions">
-          <Link to="/menu" className="btn primary">Menu</Link>
-          <a href="tel:+18453572252" className="btn outline">
-            <Phone size={15} />
-            Order Now
-          </a>
-        </div>
-        <div className="scroll-indicator" aria-hidden="true">&darr;</div>
-      </section>
-
-      {/* Divider */}
-      <div className="divider">
-        <span className="divider-icon" aria-hidden="true">&#9674;</span>
-      </div>
-
-      {/* Why Us */}
-      <section>
-        <h2 className="section-title centered">Why Dynasty King</h2>
-        <div className="highlights">
-          <div className="highlight-card">
-            <span className="icon" role="img" aria-label="Wok">&#x1F373;</span>
-            <h3>Wok-Fired Fresh</h3>
-            <p>Every dish made to order with the freshest ingredients &mdash; never pre-cooked.</p>
-          </div>
-          <div className="highlight-card">
-            <span className="icon" role="img" aria-label="Family">&#x1F46A;</span>
-            <h3>Family Recipes</h3>
-            <p>Cherished recipes from China, perfected over generations and served with love.</p>
-          </div>
-          <div className="highlight-card">
-            <span className="icon" role="img" aria-label="Clock">&#x23F0;</span>
-            <h3>Fast &amp; Friendly</h3>
-            <p>Quick service with a smile. Call ahead and your food will be ready on arrival.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="divider">
-        <span className="divider-icon" aria-hidden="true">&#9674;</span>
-      </div>
-
-      {/* Visit */}
-      <section>
-        <h2 className="section-title centered">Find Us</h2>
-        <div className="card" style={{ maxWidth: 700, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <p style={{ color: 'var(--text)', fontWeight: 600, fontSize: '1.05rem' }}>
-              296 Route 59, Tallman, NY
-            </p>
-            <p style={{ color: 'var(--muted)', marginTop: '0.25rem' }}>
-              <a href="tel:+18453572252" style={{ color: 'var(--brand)', textDecoration: 'none', fontWeight: 600 }}>
-                (845) 357-2252
-              </a>
-              {' '}&mdash; Takeout &amp; Delivery Only
-            </p>
-          </div>
-          <iframe
-            title="Map to Dynasty King, Tallman, NY"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6012.092518601745!2d-74.10340052367998!3d41.111680771336026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e741fb7d49df%3A0xa3e09de16e86f48e!2sDynasty%20King!5e0!3m2!1sen!2sus!4v1755544551934!5m2!1sen!2sus"
-            width="100%"
-            height="300"
-            loading="lazy"
-            style={{ border: 0, borderRadius: 'var(--radius)' }}
-          />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <div className="cta-section">
-        <h2>Ready to Order?</h2>
-        <p>Browse our full menu or call us directly to place your order.</p>
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/menu" className="btn primary">View Full Menu</Link>
-          <a href="tel:+18453572252" className="btn ghost">
-            <Phone size={15} />
-            (845) 357-2252
-          </a>
-        </div>
-      </div>
-    </main>
+        <p>
+          Every dish reflects the rich culinary heritage of China &mdash; hand-crafted with
+          care and the freshest ingredients.
+        </p>
+        <Link to="/about" className="read-more">Read More &rsaquo;</Link>
+      </motion.div>
+    </motion.main>
   );
 }

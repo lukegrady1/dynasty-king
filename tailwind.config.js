@@ -3,15 +3,17 @@ export default {
   content: ["./index.html","./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      fontFamily: {
-        serif: ['"Playfair Display"', "serif"],
-        sans: ['Inter', "system-ui", "sans-serif"],
-      },
       colors: {
-        brand: '#d42c2c',
-        'brand-dark': '#a31f1f',
-        gold: '#e8b230',
-      }
+        background: '#0a0a0a',
+        surface: '#111111',
+        gold: '#c8a96e',
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+      },
+      letterSpacing: {
+        widest: '0.25em',
+      },
     },
   },
   plugins: [],

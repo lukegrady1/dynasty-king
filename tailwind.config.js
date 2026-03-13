@@ -7,7 +7,11 @@ export default {
         serif: ['"Playfair Display"', "serif"],
         sans: ['Inter', "system-ui", "sans-serif"],
       },
-      colors: { /* optional brand tweak */ }
+      colors: {
+        brand: '#d42c2c',
+        'brand-dark': '#a31f1f',
+        gold: '#e8b230',
+      }
     },
   },
   plugins: [],

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -16,8 +17,18 @@ export default function Header() {
           />
         </a>
 
-        <div className="hidden md:block text-center text-sm font-medium text-[#940000] tracking-wide">
-          Call us at <span className="font-bold">(845) 357-2252</span> - Takeout & Delivery Only
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          fontSize: '0.85rem',
+          fontWeight: 600,
+          color: 'var(--brand-2)',
+        }}>
+          <Phone size={14} />
+          <a href="tel:+18453572252" style={{ color: 'inherit', textDecoration: 'none' }}>
+            (845) 357-2252
+          </a>
         </div>
 
         <nav aria-label="Primary">

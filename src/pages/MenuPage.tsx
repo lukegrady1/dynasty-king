@@ -201,7 +201,10 @@ export default function MenuPage(): JSX.Element {
       ref={topRef}
     >
       <Metadata title="Menu" />
-      <h1 className="section-title" style={{ marginTop: "1.2rem" }}>Menu</h1>
+      <div style={{ marginTop: "1.2rem", marginBottom: "0.5rem" }}>
+        <span className="badge">Our Menu</span>
+      </div>
+      <h1 className="section-title" style={{ marginTop: "0.5rem" }}>Explore Our Dishes</h1>
 
       {/* Controls + Tabs */}
       <div className="card" role="region" aria-label="Menu controls and sections">
@@ -279,7 +282,7 @@ export default function MenuPage(): JSX.Element {
                     gridTemplateColumns: "1fr auto",
                     alignItems: "baseline",
                     padding: ".7rem 0",
-                    borderBottom: "1px solid #ffffff14",
+                    borderBottom: "1px solid #ffffff0a",
                   }}
                 >
                   <span style={{ fontWeight: 600 }}>{d.name}</span>
